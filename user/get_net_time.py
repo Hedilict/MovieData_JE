@@ -16,9 +16,15 @@ def get_webservertime(host):
     ttime = time.localtime(time.mktime(ltime) + 8 * 60 * 60)
     dat = "%u-%02u-%02u" % (ttime.tm_year, ttime.tm_mon, ttime.tm_mday)
     tm = "%02u:%02u:%02u" % (ttime.tm_hour, ttime.tm_min, ttime.tm_sec)
-    if (__name__ == '__main__'):
-        print(dat, tm)
-    return (dat, tm)  # 返回值为字符串
+    return dat+' '+tm  # 返回值为字符串
 
 
-get_webservertime('www.baidu.com')
+if __name__ == '__main__':
+    l = get_webservertime('www.baidu.com')
+    print(l)
+
+
+
+
+
+

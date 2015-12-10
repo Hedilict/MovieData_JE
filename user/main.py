@@ -1,70 +1,22 @@
 # -*-coding:utf8 -*-
 # author: Hedilict
+"""
+多进程实现数据的获取、插入数据库、以及影票检索的过程
+"""
 
-from data_search import *
-from data_insert import *
+import user.data_method
+import os
+import random
+import time
+from multiprocessing import Pool
 
+from user.process import data_search_process, data_insert_process
 
-class movie(object):
-    def __init__(self, id, name, type, start_time, end_time, open_time, position):
-        self.__position = position
-        self.__open_time = open_time
-        self.__name = name
-        self.__type = type
-        self.__start_time = start_time
-        self.__end_time = end_time
+search_state = 0
+data_update_state = 0
+while True:
+    p = Pool()
+    p.apply_async(data_insert_process(), args=())
+    if search_state == 1:
+        data_search_process()
 
-    # 获取电影名称、类型（3D和非3D）、开始上映时间、结束放映时间、开放时间、座位位置的方法
-    @property
-    def name(self):
-        return self.__name
-
-    @property
-    def type(self):
-        return self.__type
-
-    @property
-    def start_time(self):
-        return self.__start_time
-
-    @property
-    def end_time(self):
-        return self.__end_time
-
-    @property
-    def open_time(self):
-        return self.__open_time
-
-    @property
-    def position(self):
-        return self.__position
-
-    # 设置电影名称、类型（3D和非3D）、开始上映时间、结束放映时间、开放时间、座位位置的方法
-    @name.setter
-    def name(self, value):
-        self.__name = value
-
-    @type.setter
-    def type(self, value):
-        self.__type = value
-
-    @start_time.setter
-    def start_time(self, value):
-        self.__start_time = value
-
-    @end_time.setter
-    def end_time(self, value):
-        self.__end_time = value
-
-    @open_time.setter
-    def open_time(self,value):
-        self.__open_time = value
-
-    @position.setter
-    def position(self,value):
-        self.__position = value
-
-
-
-data_insert()
-data_search()
